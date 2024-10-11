@@ -1,6 +1,7 @@
 const express = require("express")
-const authRouter = require("./routes/auth/auth")
-const editRoute = require("./routes/edit/editRoute")
+const authRoute = require("./routes/auth")
+const editRoute = require("./routes/editRoute")
+const profileRoute = require("./routes/profile")
 const dbConnect = require("./config/db")
 const { userIsAuthenticate } = require("./utils/auth")
 const cookieParser = require("cookie-parser")
@@ -25,11 +26,17 @@ require("dotenv").config()
 //     }
 // })
 
-app.use("/", authRouter)
+app.use("/", authRoute)
 app.use("/", editRoute)
+app.use("/", profileRoute)
 
 app.post("/logins", userIsAuthenticate, async (req, res) => {
     res.send(req.user)
+})
+app.get("/", (req, res) => {
+    res.json({
+        message: "success",
+    })
 })
 
 dbConnect()

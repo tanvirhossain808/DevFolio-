@@ -26,7 +26,6 @@ const userSchema = new Schema(
             type: String,
             required: true,
             validate(value) {
-                console.log("valued", value)
                 if (!validator.isStrongPassword(value)) {
                     throw new Error("Password is not strong" + value)
                 }

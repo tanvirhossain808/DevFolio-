@@ -1,9 +1,10 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
-const User = require("../../model/user")
-const isValidSignUpFields = require("../../utils/isValidSignUpFields")
-const { userIsAuthenticate } = require("../../utils/auth")
+const User = require("../model/user")
+const isValidSignUpFields = require("../utils/isValidSignUpFields")
+const { userIsAuthenticate } = require("../utils/auth")
 const validator = require("validator")
+const encryptedPassword = require("../utils/enryptedPassword")
 const router = express.Router()
 
 router.post("/signin", async (req, res) => {
@@ -32,7 +33,7 @@ router.post("/signin", async (req, res) => {
             throw new Error("Password is not strong" + " " + password)
         }
 
-        const hasPassword = await bcrypt.hash(password, 10)
+        const hasPassword = await encryptedPassword(password)
         const user = new User({ ...rest, password: hasPassword, email })
         const savedUser = await user.save()
         res.send(savedUser)
