@@ -10,22 +10,6 @@ app.use(express.json())
 app.use(cookieParser())
 require("dotenv").config()
 
-// app.post("/user", async (req, res) => {
-//     try {
-//         await new User({
-//             firstName: "String",
-//             lastName: "String",
-//             age: 5,
-//             email: "String",
-//             gender: "String",
-//             password: "String",
-//         }).save()
-//         res.send("user added successfully")
-//     } catch (error) {
-//         res.status(400).send("failed to add user")
-//     }
-// })
-
 app.use("/", authRoute)
 app.use("/", editRoute)
 app.use("/", profileRoute)
